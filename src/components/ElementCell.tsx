@@ -28,7 +28,7 @@ const ElementCell: React.FC<ElementCellProps> = ({
     isHighlighted ? "bg-element-highlighted text-white animate-pulse-highlight" : "bg-element-default",
     isRevealed ? "bg-element-correct text-white" : "",
     isNeighborRevealed && !isHighlighted && !isRevealed ? "bg-element-hints text-gray-800" : "",
-    !element && "opacity-50 cursor-not-allowed"
+    !element && "opacity-50 cursor-not-allowed bg-gray-50"
   );
 
   // Only render content if there's an element assigned to this position
@@ -47,7 +47,6 @@ const ElementCell: React.FC<ElementCellProps> = ({
           )}
         </>
       )}
-      {!element && <div className="text-gray-400 text-[8px]">Empty</div>}
     </div>
   );
 };
