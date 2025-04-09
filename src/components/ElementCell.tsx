@@ -39,8 +39,8 @@ const ElementCell: React.FC<ElementCellProps> = ({
     >
       {element && (
         <>
-          {/* Show symbol for highlighted, revealed, or neighbor elements */}
-          {(isRevealed || isNeighborRevealed || isHighlighted) && (
+          {/* Show symbol only for revealed or neighbor elements, NOT for highlighted */}
+          {(isRevealed || isNeighborRevealed) && (
             <div className="font-bold">{element.symbol}</div>
           )}
           {/* Only show name for fully revealed elements */}

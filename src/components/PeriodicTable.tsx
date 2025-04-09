@@ -37,7 +37,7 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
         
         // Check if this element is the highlighted one
         const isHighlighted = highlightedElement ? 
-          (highlightedElement.position.row === row && highlightedElement.position.col === col) : 
+          (highlightedElement.atomicNumber === element?.atomicNumber) : 
           false;
         
         // Check if element is revealed (guessed correctly)
