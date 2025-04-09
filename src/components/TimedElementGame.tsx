@@ -6,6 +6,7 @@ import { useToast } from '@/components/ui/use-toast';
 import PeriodicTable from './PeriodicTable';
 import { Element, getRandomElement } from '@/data/periodicTableData';
 import { formatTime } from '@/lib/timeUtils';
+import { getRandomElementExcluding } from '@/lib/elementUtils';
 
 interface TimedElementGameProps {
   timeLimit: number;
@@ -24,7 +25,10 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit }) => {
 
   // Select a random element that hasn't been correctly guessed yet
   const selectRandomElement = () => {
-    const newElement = getRandomElement(correctlyGuessed.map(e => e.atomicNumber));
+    const excludeAtomicNumbers = correctlyGuessed.map(e => e.atomicNumber);
+    const newElement = excludeAtomicNumbers.length > 0 
+      ? getRandomElementExcluding(excludeAtomicNumbers)
+      : getRandomElement();
     setTargetElement(newElement);
     console.log('New target element:', newElement.name); // For debugging
   };
