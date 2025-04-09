@@ -89,7 +89,7 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit }) => {
       // Incorrect guess
       toast({
         title: "Incorrect",
-        description: `That's not ${targetElement.name}. Try the next one!`,
+        description: `That's not the correct element. Try the next one!`,
         variant: "destructive",
       });
       
@@ -150,6 +150,8 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit }) => {
           revealedElements={correctlyGuessed}
           neighborElements={[]}
           onElementClick={() => {}}
+          showLanthanoids={true}
+          showActinoids={true}
         />
       </div>
 

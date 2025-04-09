@@ -141,6 +141,8 @@ const ElementGuessingGame: React.FC = () => {
           revealedElements={revealedElements}
           neighborElements={neighborElements}
           onElementClick={handleElementClick}
+          showLanthanoids={true}
+          showActinoids={true}
         />
       </div>
 
