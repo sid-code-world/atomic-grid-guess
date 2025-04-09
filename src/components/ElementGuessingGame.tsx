@@ -5,8 +5,13 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
 import PeriodicTable from './PeriodicTable';
 import { Element, getRandomElement, getNeighborElements } from '@/data/periodicTableData';
+import { ArrowLeft } from 'lucide-react';
 
-const ElementGuessingGame: React.FC = () => {
+interface ElementGuessingGameProps {
+  onBackToMenu: () => void;
+}
+
+const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu }) => {
   const { toast } = useToast();
   const [targetElement, setTargetElement] = useState<Element | null>(null);
   const [guessInput, setGuessInput] = useState('');
@@ -121,6 +126,18 @@ const ElementGuessingGame: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={onBackToMenu}
+          className="flex items-center gap-1"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Menu
+        </Button>
+      </div>
+
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">Periodic Table Guessing Game</h1>
         <p className="text-gray-600 mt-2">

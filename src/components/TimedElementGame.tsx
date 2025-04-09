@@ -7,12 +7,14 @@ import PeriodicTable from './PeriodicTable';
 import { Element, getRandomElement } from '@/data/periodicTableData';
 import { formatTime } from '@/lib/timeUtils';
 import { getRandomElementExcluding } from '@/lib/elementUtils';
+import { ArrowLeft } from 'lucide-react';
 
 interface TimedElementGameProps {
   timeLimit: number;
+  onBackToMenu: () => void;
 }
 
-const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit }) => {
+const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackToMenu }) => {
   const { toast } = useToast();
   const [targetElement, setTargetElement] = useState<Element | null>(null);
   const [guessInput, setGuessInput] = useState('');
@@ -130,6 +132,18 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit }) => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={onBackToMenu}
+          className="flex items-center gap-1"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Menu
+        </Button>
+      </div>
+      
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold">Timed Periodic Table Challenge</h1>
         

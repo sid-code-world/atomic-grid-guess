@@ -10,6 +10,10 @@ const Index = () => {
   const [gameMode, setGameMode] = useState<"classic" | "timed">("classic");
   const [timeLimit, setTimeLimit] = useState<number>(0);
 
+  const handleBackToMenu = () => {
+    setGameStarted(false);
+  };
+
   if (!gameStarted) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
@@ -100,8 +104,8 @@ const Index = () => {
   }
 
   return gameMode === "classic" 
-    ? <ElementGuessingGame /> 
-    : <TimedElementGame timeLimit={timeLimit} />;
+    ? <ElementGuessingGame onBackToMenu={handleBackToMenu} /> 
+    : <TimedElementGame timeLimit={timeLimit} onBackToMenu={handleBackToMenu} />;
 };
 
 export default Index;
