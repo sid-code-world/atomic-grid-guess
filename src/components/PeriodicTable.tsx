@@ -82,14 +82,17 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
     for (let col = 3; col <= 16; col++) {
       const element = getElementByPosition(8, col);
       
+      // Check if this element is the highlighted one
       const isHighlighted = highlightedElement && element ? 
         (highlightedElement.atomicNumber === element.atomicNumber) : 
         false;
       
+      // Check if element is revealed (guessed correctly)
       const isRevealed = element ? 
         revealedElements.some(e => e.atomicNumber === element.atomicNumber) : 
         false;
       
+      // Check if element is a neighbor that should be revealed
       const isNeighborRevealed = element ? 
         neighborElements.some(e => e.atomicNumber === element.atomicNumber) : 
         false;
@@ -126,14 +129,17 @@ const PeriodicTable: React.FC<PeriodicTableProps> = ({
     for (let col = 3; col <= 16; col++) {
       const element = getElementByPosition(9, col);
       
+      // Check if this element is the highlighted one
       const isHighlighted = highlightedElement && element ? 
         (highlightedElement.atomicNumber === element.atomicNumber) : 
         false;
       
+      // Check if element is revealed (guessed correctly)
       const isRevealed = element ? 
         revealedElements.some(e => e.atomicNumber === element.atomicNumber) : 
         false;
       
+      // Check if element is a neighbor that should be revealed
       const isNeighborRevealed = element ? 
         neighborElements.some(e => e.atomicNumber === element.atomicNumber) : 
         false;
