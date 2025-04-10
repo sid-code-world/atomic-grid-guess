@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,10 +21,8 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
   const [revealedElements, setRevealedElements] = useState<Element[]>([]);
   const [neighborElements, setNeighborElements] = useState<Element[]>([]);
 
-  // Maximum number of attempts
   const maxAttempts = 5;
 
-  // Initialize or reset the game
   const initGame = () => {
     const newElement = getRandomElement();
     setTargetElement(newElement);
@@ -35,30 +32,25 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
     setHints([]);
     setRevealedElements([]);
     setNeighborElements([]);
-    console.log('New target element:', newElement.name); // For debugging
+    console.log('New target element:', newElement.name);
   };
 
-  // Start the game when the component mounts
   useEffect(() => {
     initGame();
   }, []);
 
-  // Handle form submit for guesses
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!guessInput.trim() || gameState !== 'playing') return;
 
     const guess = guessInput.trim().toLowerCase();
     
-    // Add the guess to attempts
     setAttempts(prev => [...prev, guessInput]);
     setGuessInput('');
 
-    // Check if the guess is correct
     if (targetElement && 
         (guess === targetElement.name.toLowerCase() || 
          guess === targetElement.symbol.toLowerCase())) {
-      // Correct guess
       setGameState('won');
       setScore(prev => prev + (maxAttempts - attempts.length) * 10);
       setRevealedElements(prev => [...prev, targetElement]);
@@ -69,17 +61,14 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
         variant: "default",
       });
     } else {
-      // Incorrect guess
       toast({
         title: "Incorrect Guess",
         description: `${guessInput} is not the correct element. Try again!`,
         variant: "destructive",
       });
 
-      // Check if we should provide hints
       const attemptsCount = attempts.length + 1;
       
-      // After 2 incorrect guesses, show properties hint
       if (attemptsCount === 2 && targetElement) {
         const randomProperty = targetElement.properties[Math.floor(Math.random() * targetElement.properties.length)];
         setHints(prev => [...prev, `Hint: ${randomProperty}`]);
@@ -90,7 +79,6 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
         });
       }
       
-      // After 4 incorrect guesses, show neighbor elements
       if (attemptsCount === 4 && targetElement) {
         const neighbors = getNeighborElements(targetElement);
         setNeighborElements(neighbors);
@@ -103,7 +91,6 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
         setHints(prev => [...prev, `Hint: This element is near ${neighbors.map(n => n.symbol).join(', ')}`]);
       }
       
-      // Check if max attempts reached
       if (attemptsCount >= maxAttempts) {
         setGameState('lost');
         setRevealedElements(prev => [...prev, targetElement]);
@@ -117,10 +104,7 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
     }
   };
 
-  // Handle click on element cell
   const handleElementClick = (row: number, col: number) => {
-    // This would be used if you want to implement clicking elements instead of typing
-    // For now, we'll just log the position
     console.log(`Clicked element at row ${row}, col ${col}`);
   };
 
@@ -158,8 +142,6 @@ const ElementGuessingGame: React.FC<ElementGuessingGameProps> = ({ onBackToMenu 
           revealedElements={revealedElements}
           neighborElements={neighborElements}
           onElementClick={handleElementClick}
-          showLanthanoids={true}
-          showActinoids={true}
         />
       </div>
 

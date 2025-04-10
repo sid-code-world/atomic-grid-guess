@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,25 +24,21 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Select a random element that hasn't been correctly guessed yet
   const selectRandomElement = () => {
     const excludeAtomicNumbers = correctlyGuessed.map(e => e.atomicNumber);
     const newElement = excludeAtomicNumbers.length > 0 
       ? getRandomElementExcluding(excludeAtomicNumbers)
       : getRandomElement();
     setTargetElement(newElement);
-    console.log('New target element:', newElement.name); // For debugging
+    console.log('New target element:', newElement.name);
   };
 
-  // Initialize the game
   useEffect(() => {
     selectRandomElement();
     
-    // Start the timer
     timerRef.current = setInterval(() => {
       setTimeRemaining(prev => {
         if (prev <= 1) {
-          // Time's up
           clearInterval(timerRef.current!);
           setGameState('finished');
           return 0;
@@ -52,12 +47,10 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
       });
     }, 1000);
     
-    // Focus on the input field
     if (inputRef.current) {
       inputRef.current.focus();
     }
     
-    // Cleanup on unmount
     return () => {
       if (timerRef.current) {
         clearInterval(timerRef.current);
@@ -65,7 +58,6 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
     };
   }, []);
 
-  // Handle form submit for guesses
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!guessInput.trim() || gameState !== 'playing' || !targetElement) return;
@@ -73,9 +65,7 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
     const guess = guessInput.trim().toLowerCase();
     setGuessInput('');
     
-    // Check if the guess is correct
     if (guess === targetElement.name.toLowerCase() || guess === targetElement.symbol.toLowerCase()) {
-      // Correct guess
       setScore(prev => prev + 10);
       setCorrectlyGuessed(prev => [...prev, targetElement]);
       
@@ -85,27 +75,22 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
         variant: "default",
       });
       
-      // Select a new element
       selectRandomElement();
     } else {
-      // Incorrect guess
       toast({
         title: "Incorrect",
         description: `That's not the correct element. Try the next one!`,
         variant: "destructive",
       });
       
-      // Select a new element
       selectRandomElement();
     }
     
-    // Focus back on input
     if (inputRef.current) {
       inputRef.current.focus();
     }
   };
 
-  // Handle restarting the game
   const handleRestart = () => {
     setScore(0);
     setCorrectlyGuessed([]);
@@ -113,7 +98,6 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
     setGameState('playing');
     selectRandomElement();
     
-    // Restart the timer
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
@@ -164,8 +148,6 @@ const TimedElementGame: React.FC<TimedElementGameProps> = ({ timeLimit, onBackTo
           revealedElements={correctlyGuessed}
           neighborElements={[]}
           onElementClick={() => {}}
-          showLanthanoids={true}
-          showActinoids={true}
         />
       </div>
 
