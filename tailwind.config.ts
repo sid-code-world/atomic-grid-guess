@@ -68,7 +68,9 @@ export default {
 					default: '#e0f7fa',
 					incorrect: '#ff5252',
 					correct: '#4caf50',
-					hints: '#ffc107'
+					hints: '#ffc107',
+					lanthanoid: '#d3e4fd',
+					actinoid: '#e0f7fa'
 				}
 			},
 			borderRadius: {

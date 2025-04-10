@@ -22,10 +22,17 @@ const ElementCell: React.FC<ElementCellProps> = ({
 }) => {
   const { row, col } = position;
   
+  // Determine if this is a lanthanoid or actinoid element
+  const isLanthanoid = row === 8;
+  const isActinoid = row === 9;
+  
   // Determine cell classes based on state
   const cellClasses = cn(
     "w-14 h-14 border rounded flex flex-col items-center justify-center text-center cursor-pointer transition-all duration-300 text-xs md:text-sm",
-    isHighlighted ? "bg-element-highlighted text-white animate-pulse-highlight" : "bg-element-default",
+    isHighlighted ? "bg-element-highlighted text-white animate-pulse-highlight" : 
+      isLanthanoid ? "bg-element-lanthanoid" :
+      isActinoid ? "bg-element-actinoid" : 
+      "bg-element-default",
     isRevealed ? "bg-element-correct text-white" : "",
     isNeighborRevealed && !isHighlighted && !isRevealed ? "bg-element-hints text-gray-800" : "",
     !element && "opacity-50 cursor-not-allowed bg-gray-50"
